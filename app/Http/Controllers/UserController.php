@@ -9,6 +9,8 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use App\Models\User;
+use Cache;
 
 class UserController extends AppBaseController
 {
@@ -17,8 +19,6 @@ class UserController extends AppBaseController
 
     public function __construct(UserRepository $userRepo)
     {
-        set_time_limit(8000000);
-        ini_set('memory_limit', '1024M');
         $this->userRepository = $userRepo;
     }
 
@@ -31,8 +31,15 @@ class UserController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $users = $this->userRepository->paginate(10);
-
+        $key = md5(vsprintf('%s.%s.%s', [
+            'UserController',
+            'index',
+            $request->get('page', 1),
+        ]));
+        $users = Cache::remember($key, 10000000, function () {
+            return User::with('comments')->orderBy('created_at', 'desc')->paginate(10);
+        });
+ 
         return view('users.index')
             ->with('users', $users);
     }
