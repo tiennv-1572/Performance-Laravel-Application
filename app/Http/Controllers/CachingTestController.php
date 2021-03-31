@@ -21,9 +21,7 @@ class CachingTestController extends Controller
 
     public function etag()
     {
-        return response()
-            ->view('cache.etag')
-            ->setEtag(md5('etag.js'));
+        return view('cache.etag');
     }
 
     public function expires()

@@ -24,6 +24,6 @@ Route::resource('users', 'UserController');
 
 Route::get('cache', 'CachingTestController@index');
 Route::get('last-modified.js', 'CachingTestController@lastModified')->name('cache.last_modified');
-Route::get('etag.js', 'CachingTestController@etag')->name('cache.etag');
+Route::get('etag.js', 'CachingTestController@etag')->name('cache.etag')->middleware('etag');
 Route::get('expires.js', 'CachingTestController@expires')->name('cache.expires');
 Route::get('cache-control.js', 'CachingTestController@cacheControl')->name('cache.cache_control');

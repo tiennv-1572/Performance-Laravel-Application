@@ -26,7 +26,7 @@
 
             .flex-center {
                 align-items: center;
-                display: flex;
+                display: flex;github
                 justify-content: center;
             }
 
@@ -96,5 +96,9 @@
                 </div>
             </div>
         </div>
+        <script src="last-modified.js"></script>
+        <script src="etag.js"></script>
+        <script src="expires.js"></script>
+        <script src="cache-control.js"></script>
     </body>
 </html>
